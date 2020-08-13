@@ -51,7 +51,7 @@ age_representativeness_plot <- function(bio,
   if (nrow(bio) == 0) {
     stop("Your data does not have any length or age data.")
   }
-  if (any(bio[, "Length_cm"] >= max_break, na.rm = TRUE)) {
+  if (any(bio[, "Length_cm"] > max_break, na.rm = TRUE)) {
     nrows_old <- nrow(bio)
     bio <- bio[bio[, "Length_cm"] < max_break, ]
     warning(
