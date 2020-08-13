@@ -5,8 +5,14 @@
 \title{Aggregate composition data by length, age, or age-at-length according to the
 given stratification.}
 \usage{
-getComps(Pdata, strat = NULL, Comps = "AAL", defaults = c("fleet",
-  "fishyr", "season"), verbose = TRUE, ...)
+getComps(
+  Pdata,
+  strat = NULL,
+  Comps = "AAL",
+  defaults = c("fleet", "fishyr", "season"),
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{Pdata}{A PacFIN \code{data.frame}}

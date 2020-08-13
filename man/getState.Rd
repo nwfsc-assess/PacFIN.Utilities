@@ -4,8 +4,13 @@
 \alias{getState}
 \title{Create a state field from \code{source} for the \code{data.frame}}
 \usage{
-getState(Pdata, source = "SOURCE_AGID", CLEAN = TRUE, keepPW = FALSE,
-  verbose = TRUE)
+getState(
+  Pdata,
+  source = "SOURCE_AGID",
+  CLEAN = TRUE,
+  keepPW = FALSE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{Pdata}{A PacFIN \code{data.frame}}

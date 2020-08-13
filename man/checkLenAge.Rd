@@ -6,8 +6,13 @@
 age value to those estimated with the option to throw out records
 that are outside a specified sd band.}
 \usage{
-checkLenAge(Pdata, Par = list(0.13, 55, 15, 0.1, 0.1), keepAll = TRUE,
-  sdFactor = 4, Optim = TRUE)
+checkLenAge(
+  Pdata,
+  Par = list(0.13, 55, 15, 0.1, 0.1),
+  keepAll = TRUE,
+  sdFactor = 4,
+  Optim = TRUE
+)
 }
 \arguments{
 \item{Pdata}{a PacFIN dataset}

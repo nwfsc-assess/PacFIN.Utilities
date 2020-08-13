@@ -4,8 +4,14 @@
 \alias{getSeason}
 \title{Add a column to \code{Pdata} for season.}
 \usage{
-getSeason(Pdata, season_type = -1, yearUp = NULL, yearDown = NULL,
-  plotResults = F, verbose = TRUE)
+getSeason(
+  Pdata,
+  season_type = -1,
+  yearUp = NULL,
+  yearDown = NULL,
+  plotResults = F,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{Pdata}{A PacFIN \code{data.frame}}

@@ -4,10 +4,21 @@
 \alias{writeComps}
 \title{Write out composition data formatted for Stock Synthesis.}
 \usage{
-writeComps(inComps, fname = "out.csv", abins = NULL, lbins = NULL,
-  maxAge = Inf, partition = 0, ageErr = 0, returns = "FthenM",
-  dummybins = FALSE, sum1 = FALSE, digits = 4, overwrite = TRUE,
-  verbose = TRUE)
+writeComps(
+  inComps,
+  fname = "out.csv",
+  abins = NULL,
+  lbins = NULL,
+  maxAge = Inf,
+  partition = 0,
+  ageErr = 0,
+  returns = "FthenM",
+  dummybins = FALSE,
+  sum1 = FALSE,
+  digits = 4,
+  overwrite = TRUE,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{inComps}{A dataframe generated as described in Workflow, above.}

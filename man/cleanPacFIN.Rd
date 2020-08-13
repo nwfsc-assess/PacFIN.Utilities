@@ -4,12 +4,22 @@
 \alias{cleanPacFIN}
 \title{Filter PacFIN samples.}
 \usage{
-cleanPacFIN(Pdata, only_USINPFC = FALSE, keep_INPFC = NULL,
-  remove_INPFC = NULL, badRecords = NULL,
+cleanPacFIN(
+  Pdata,
+  only_USINPFC = FALSE,
+  keep_INPFC = NULL,
+  remove_INPFC = NULL,
+  badRecords = NULL,
   keep_gears = unique(Pdata$GRID)[order(unique(Pdata$GRID))],
-  keep_sample_type = c("", "M"), keep_sample_method = "R",
-  keep_length_type, keep_missing_lengths = FALSE, keep_CA = TRUE,
-  CLEAN = TRUE, spp = NULL, verbose = TRUE)
+  keep_sample_type = c("", "M"),
+  keep_sample_method = "R",
+  keep_length_type,
+  keep_missing_lengths = FALSE,
+  keep_CA = TRUE,
+  CLEAN = TRUE,
+  spp = NULL,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{Pdata}{a PacFIN dataset}

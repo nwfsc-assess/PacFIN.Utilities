@@ -4,8 +4,15 @@
 \alias{doSexRatio}
 \title{Assign gender for unsexed fish in compiled Comp data.}
 \usage{
-doSexRatio(CompData, findRatio = FALSE, Rvector = 0.5, Bins = NULL,
-  ratioU = 0.5, maxsizeU = 0, GTsizeU = Inf)
+doSexRatio(
+  CompData,
+  findRatio = FALSE,
+  Rvector = 0.5,
+  Bins = NULL,
+  ratioU = 0.5,
+  maxsizeU = 0,
+  GTsizeU = Inf
+)
 }
 \arguments{
 \item{CompData}{data that have already been aggregated by \code{getComps}.}

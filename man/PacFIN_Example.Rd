@@ -3,7 +3,6 @@
 \docType{package}
 \name{PacFIN_Example}
 \alias{PacFIN_Example}
-\alias{PacFIN_Example-package}
 \title{Sample PacFIN Run}
 \description{
 Cut and paste each of the following commands in turn to

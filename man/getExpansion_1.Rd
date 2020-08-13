@@ -5,9 +5,20 @@
 \title{First level expansion for composition data to accout for unsampled
 fish in a tow.}
 \usage{
-getExpansion_1(Pdata, maxExp = 0.95, Indiv_Wgts = TRUE,
-  Exp_WA = TRUE, fa = NA, fb = NA, ma = NA, mb = NA, ua = NA,
-  ub = NA, verbose = TRUE, plot = FALSE)
+getExpansion_1(
+  Pdata,
+  maxExp = 0.95,
+  Indiv_Wgts = TRUE,
+  Exp_WA = TRUE,
+  fa = NA,
+  fb = NA,
+  ma = NA,
+  mb = NA,
+  ua = NA,
+  ub = NA,
+  verbose = TRUE,
+  plot = FALSE
+)
 }
 \arguments{
 \item{Pdata}{A PacFIN \code{data.frame}}

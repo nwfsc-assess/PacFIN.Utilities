@@ -4,9 +4,19 @@
 \alias{EF1_Denominator}
 \title{Calculate the denominator for the level-1 expansion factor.}
 \usage{
-EF1_Denominator(Pdata, Indiv_Wgts = TRUE, calcWL = FALSE, fa = 2e-06,
-  fb = 3.5, ma = 2e-06, mb = 3.5, ua = 2e-06, ub = 3.5,
-  verbose = TRUE, plot = FALSE)
+EF1_Denominator(
+  Pdata,
+  Indiv_Wgts = TRUE,
+  calcWL = FALSE,
+  fa = 2e-06,
+  fb = 3.5,
+  ma = 2e-06,
+  mb = 3.5,
+  ua = 2e-06,
+  ub = 3.5,
+  verbose = TRUE,
+  plot = FALSE
+)
 }
 \arguments{
 \item{Pdata}{A PacFIN \code{data.frame}}

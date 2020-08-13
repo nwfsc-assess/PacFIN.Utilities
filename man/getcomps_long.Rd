@@ -4,8 +4,14 @@
 \alias{getcomps_long}
 \title{Create a Long Database to Prepare Compositions}
 \usage{
-getcomps_long(data, towstrat, type, towid = "SAMPLE_NO",
-  weightid = "Final_Sample_Size", dropmissing = TRUE)
+getcomps_long(
+  data,
+  towstrat,
+  type,
+  towid = "SAMPLE_NO",
+  weightid = "Final_Sample_Size",
+  dropmissing = TRUE
+)
 }
 \arguments{
 \item{data}{A data frame with columns defined by the following

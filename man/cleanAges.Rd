@@ -4,8 +4,13 @@
 \alias{cleanAges}
 \title{Filter samples for appropriate ages and agemethods.}
 \usage{
-cleanAges(Pdata, keep_age_methods = c("B", "S", ""), minAge = 1,
-  maxAge = NULL, CLEAN = TRUE)
+cleanAges(
+  Pdata,
+  keep_age_methods = c("B", "S", ""),
+  minAge = 1,
+  maxAge = NULL,
+  CLEAN = TRUE
+)
 }
 \arguments{
 \item{Pdata}{A PacFIN dataset}

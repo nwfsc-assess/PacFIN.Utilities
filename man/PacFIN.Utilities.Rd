@@ -3,7 +3,6 @@
 \docType{package}
 \name{PacFIN.Utilities}
 \alias{PacFIN.Utilities}
-\alias{PacFIN.Utilities-package}
 \title{PacFIN.Utilities: Functions for working up PacFIN biological (BDS) data.}
 \description{
 The PacFIN.Utilites package provides functions for filtering, summarizing, expanding, and compiling 
