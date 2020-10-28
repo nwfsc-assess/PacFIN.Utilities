@@ -43,6 +43,12 @@ An R data frame containing BDS information for the species given in the PACFIN_S
 Extract commercial fisheries BDS data recorded by port samplers deployed at fish processing plants. This data is archived in the Comprehensive_BDS_Comm  
 table contained within the PacFIN (https://pacfin.psmfc.org/) database.
 }
+\examples{
+PacFIN.Login <- "jonesj" 
+PacFIN.PW <- "????????"   
+CNRY.Catch <- PacFIN.Catch.Extraction("('CNRY','CNR1')", minYr = 2015, maxYr = 2017)
+CNRY.BDS <- PacFIN.BDS.Extraction("'CNRY'", minYr = 2015, maxYr = 2017, PacFIN.Catch.Dahl = CNRY.Catch$CompFT, verbose = FALSE)
+}
 \author{
 John R. Wallace
 }

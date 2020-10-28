@@ -42,6 +42,13 @@ is tribal catch data summarized by year and gear type.
 Extract commercial fisheries catch data from fish tickets supplied by fish processing plants when the fish were delivered. 
 This data is archived in the Comprehensive_FT table contained within the PacFIN (https://pacfin.psmfc.org/) database.
 }
+\examples{
+PacFIN.Login <- "jonesj" 
+PacFIN.PW <- "????????"   
+PacFIN.PTRL.Catch <- PacFIN.Catch.Extraction("('PTRL', 'PTR1')")
+PacFIN.SABL.Catch <- PacFIN.Catch.Extraction("'SABL'")
+
+}
 \author{
 John R. Wallace
 }
