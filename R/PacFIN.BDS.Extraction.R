@@ -19,7 +19,12 @@
 #' @author John R. Wallace
 #' @export
 #' @return An R data frame containing BDS information for the species given in the PACFIN_SPECIES_CODE argument.
-#'
+#' @examples
+#' PacFIN.Login <- "jonesj" 
+#' PacFIN.PW <- "????????"   
+#' CNRY.Catch <- PacFIN.Catch.Extraction("('CNRY','CNR1')", minYr = 2015, maxYr = 2017)
+#' CNRY.BDS <- PacFIN.BDS.Extraction("'CNRY'", minYr = 2015, maxYr = 2017, PacFIN.Catch.Dahl = CNRY.Catch$CompFT, verbose = FALSE)
+#"
 PacFIN.BDS.Extraction <- function(PACFIN_SPECIES_CODE = "'CNRY'", UID = PacFIN.Login, PWD = PacFIN.PW, minYr = 1900, maxYr = 2100, 
              verbose = TRUE, PacFIN.Catch.Dahl = NULL, addColsWithLegacyNames = TRUE) {
 

@@ -18,7 +18,12 @@
 #' @return An R list with the following data frames: 'CompFT' contains the comprehensive Fish Ticket information; PacFIN.INPFC.Summary.Catch' is catch summed over INPFC areas by year, agency, and port;
 #' 'PacFIN.PSMFC.Summary.Catch' is catch summed over PSMFC areas by year, agency, and port; Catch.mt.by.Agency.Year.Fleet is catch summarized by agency, year, and fleet, 'Tribal.Catch.mt.by.Year.Gear'
 #' is tribal catch data summarized by year and gear type.
-#' 
+#' @examples
+#' PacFIN.Login <- "jonesj" 
+#' PacFIN.PW <- "????????"   
+#' PacFIN.PTRL.Catch <- PacFIN.Catch.Extraction("('PTRL', 'PTR1')")
+#' PacFIN.SABL.Catch <- PacFIN.Catch.Extraction("'SABL'")
+#'
 PacFIN.Catch.Extraction <- function(PACFIN_SPECIES_CODE = "('CNRY','CNR1')", PacFIN_Common_Name = NULL, UID = PacFIN.Login, PWD = PacFIN.PW, minYr = 1900, maxYr = 2100, verbose = TRUE, addColsWithLegacyNames = TRUE) {
 
     # -------- Import utility Functions --------
