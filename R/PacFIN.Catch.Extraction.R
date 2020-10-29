@@ -11,7 +11,8 @@
 #' @param minYr The minimum year for which data is to be extracted.
 #' @param maxYr The maximum year for which data is to be extracted.
 #' @param verbose A logical object. When TRUE, verbose output will be printed. When FALSE, only differences and ratios of INPFC and PSMFC areas will be printed. The default is TRUE. 
-#' @param addColsWithLegacyNames When TRUE, historically used columns will be copied and given legacy names, mostly from the 'vdrfd' PacFIN table. The default is currently TRUE. 
+#' @param addColsWithLegacyNames When TRUE, the main three data frames (CompFT, PacFIN.INPFC.Summary.Catch, PacFIN.PSMFC.Summary.Catch) will have their historically used columns 
+#' copied and given legacy names, mostly from the 'vdrfd' PacFIN table. The default is currently TRUE. 
 #'
 #' @author John R. Wallace
 #' @export
@@ -162,7 +163,7 @@ PacFIN.Catch.Extraction <- function(PACFIN_SPECIES_CODE = "('CNRY','CNR1')", Pac
   
    # ------------------------------------------- PSMFC Summary Catch Table ---------------------------------------------------------------- 
       
-   CompFT.PSMFC <- CompFT[!(CompFT$REMOVAL_TYPE_CODE %in% "R") & CompFT$PACFIN_CATCH_AREA_CODE %in% c("UP","1A", "1B", "MNTREY BAY", "1E", "1C", "2A", "2B", "2C", "2E", "2F", "2D", "3A", "3B", "3S"), ]
+   CompFT.PSMFC <- CompFT[!(CompFT$REMOVAL_TYPE_CODE %in% "R") & CompFT$PACFIN_CATCH_AREA_CODE %in% c("UP","1A", "1B", "1D", "1E", "1C", "2A", "2B", "2C", "2E", "2F", "2D", "3A", "3B", "3S"), ]
    CompFT.PSMFC$PACFIN_PORT_CODE <- CompFT.PSMFC$W_O_C_Port_Groups
    PacFIN.PSMFC.Summary.Catch <- aggregate(list(ROUND_WEIGHT_MTONS = CompFT.PSMFC$ROUND_WEIGHT_MTONS), CompFT.PSMFC[, c('COUNCIL_CODE', 'DAHL_GROUNDFISH_CODE', 'LANDING_YEAR', 'LANDING_MONTH',
                                                          'PACFIN_SPECIES_CODE', 'PACFIN_CATCH_AREA_CODE', 'PACFIN_GEAR_CODE', 'PACFIN_GROUP_GEAR_CODE', 'PACFIN_PORT_CODE')], sum, na.rm = TRUE)
@@ -224,14 +225,28 @@ PacFIN.Catch.Extraction <- function(PACFIN_SPECIES_CODE = "('CNRY','CNR1')", Pac
     '  #  https://stackoverflow.com/questions/10586652/r-preserve-order-when-using-matching-operators-in  '
     '  # RWT_LBS was historically converted to CATCH.LBS in the SQL code, so here ROUND_WEIGHT_LBS is converted to CATCH.LBS  ' 
     
-      for(i in (1:nrow(nameConvertVdrfdToCompFT))[nameConvertVdrfdToCompFT$Comp_FT %ino% names(CompFT)])   
-
-         CompFT[nameConvertVdrfdToCompFT[i, 2]] <- CompFT[nameConvertVdrfdToCompFT[i, 1]]
-         
+      for(i in (1:nrow(nameConvertVdrfdToCompFT))[nameConvertVdrfdToCompFT$Comp_FT %ino% names(CompFT)]) {
+         CompFT[nameConvertVdrfdToCompFT[i, 'vdrfd']] <- CompFT[nameConvertVdrfdToCompFT[i, 'Comp_FT']]
+      }  
       CompFT$CATCH.LBS <- CompFT$ROUND_WEIGHT_MTONS * 2204.62262
       CompFT$LWT_LBS <- CompFT$LANDED_WEIGHT_MTONS * 2204.62262
-  }
+      
+      
+      for(i in (1:nrow(nameConvertVdrfdToCompFT))[nameConvertVdrfdToCompFT$Comp_FT %ino% names(PacFIN.INPFC.Summary.Catch)]) {
+         PacFIN.INPFC.Summary.Catch[nameConvertVdrfdToCompFT[i, 'vdrfd']] <- PacFIN.INPFC.Summary.Catch[nameConvertVdrfdToCompFT[i, 'Comp_FT']]
+      }  
+      PacFIN.INPFC.Summary.Catch$CATCH.KG <- PacFIN.INPFC.Summary.Catch$ROUND_WEIGHT_MTONS * 1000
+      
+      
+      for(i in (1:nrow(nameConvertVdrfdToCompFT))[nameConvertVdrfdToCompFT$Comp_FT %ino% names(PacFIN.PSMFC.Summary.Catch)]) {
+         PacFIN.PSMFC.Summary.Catch[nameConvertVdrfdToCompFT[i, 'vdrfd']] <- PacFIN.PSMFC.Summary.Catch[nameConvertVdrfdToCompFT[i, 'Comp_FT']]
+      }   
+      PacFIN.PSMFC.Summary.Catch$CATCH.KG <- PacFIN.PSMFC.Summary.Catch$ROUND_WEIGHT_MTONS * 1000
+      
+   }
    
   invisible(list(CompFT = CompFT, PacFIN.INPFC.Summary.Catch = PacFIN.INPFC.Summary.Catch, PacFIN.PSMFC.Summary.Catch = PacFIN.PSMFC.Summary.Catch, 
                    Catch.mt.by.Agency.Year.Fleet = Catch.mt.by.Agency.Year.Fleet, Tribal.Catch.mt.by.Year.Gear = Tribal.Catch.mt.by.Year.Gear))
 }
+
+

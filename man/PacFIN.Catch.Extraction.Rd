@@ -31,7 +31,8 @@ Otherwise, for major species that are always separated out in the catch use: e.g
 
 \item{verbose}{A logical object. When TRUE, verbose output will be printed. When FALSE, only differences and ratios of INPFC and PSMFC areas will be printed. The default is TRUE.}
 
-\item{addColsWithLegacyNames}{When TRUE, historically used columns will be copied and given legacy names, mostly from the 'vdrfd' PacFIN table. The default is currently TRUE.}
+\item{addColsWithLegacyNames}{When TRUE, the main three data frames (CompFT, PacFIN.INPFC.Summary.Catch, PacFIN.PSMFC.Summary.Catch) will have their historically used columns 
+copied and given legacy names, mostly from the 'vdrfd' PacFIN table. The default is currently TRUE.}
 }
 \value{
 An R list with the following data frames: 'CompFT' contains the comprehensive Fish Ticket information; PacFIN.INPFC.Summary.Catch' is catch summed over INPFC areas by year, agency, and port;
