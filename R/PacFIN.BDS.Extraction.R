@@ -14,7 +14,7 @@
 #' This is normally supplied via the CompFT data frame in the output R list from the PacFIN.Catch.Extraction() function run using the same species.
 #' The Dahl sector information will be matched onto the BDS data using FTID. 
 #' @param addColsWithLegacyNames When TRUE, historically used columns will be copied and given legacy names from tables used before the creation of the 
-#' Comprehensive_BDS_Comm table. The default is currently TRUE. 
+#' Comprehensive_BDS_Comm table. The default is FALSE. 
 #'
 #' @author John R. Wallace
 #' @export

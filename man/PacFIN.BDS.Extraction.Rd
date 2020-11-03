@@ -12,7 +12,7 @@ PacFIN.BDS.Extraction(
   maxYr = 2100,
   verbose = TRUE,
   PacFIN.Catch.Dahl = NULL,
-  addColsWithLegacyNames = TRUE
+  addColsWithLegacyNames = FALSE
 )
 }
 \arguments{
@@ -34,7 +34,7 @@ This is normally supplied via the CompFT data frame in the output R list from th
 The Dahl sector information will be matched onto the BDS data using FTID.}
 
 \item{addColsWithLegacyNames}{When TRUE, historically used columns will be copied and given legacy names from tables used before the creation of the 
-Comprehensive_BDS_Comm table. The default is currently TRUE.}
+Comprehensive_BDS_Comm table. The default is FALSE.}
 }
 \value{
 An R data frame containing BDS information for the species given in the PACFIN_SPECIES_CODE argument.
