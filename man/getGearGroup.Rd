@@ -4,15 +4,24 @@
 \alias{getGearGroup}
 \title{Create column for gears according to PacFIN gears}
 \usage{
-getGearGroup(Pdata, spp = NULL)
+getGearGroup(Pdata, spp = NULL, verbose = FALSE)
 }
 \arguments{
-\item{Pdata}{A PacFIN \code{data.frame}}
+\item{Pdata}{A data frame of biological samples
+originating from the
+Pacific Fishieries Information Network (PacFIN) data warehouse,
+which originated in 2014. Data are pulled using sql calls, see
+\code{\link{PullBDS.PacFIN}()}.}
 
 \item{spp}{A character string giving the species name to 
 ensure that the methods are species specific. Leave \code{NULL}
 if generic methods work for your species. 
 Currently, sablefish is the only species with species-specific code.}
+
+\item{verbose}{A logical value specifying if output should be written
+to the screen or not. Good for testing and exploring your data but
+can be turned off when output indicates errors. The default value
+is \code{TRUE}.}
 }
 \value{
 A modified \code{data.frame} where an additional column labeled
@@ -20,7 +29,7 @@ A modified \code{data.frame} where an additional column labeled
   in the process.
 }
 \description{
-\subsection{\code{\link{Workflow}}}{
+\subsection{Workflow}{
 \code{getGearGroup} is run by \code{\link{cleanPacFIN}} and users shouldn't need
 to worry about it.
 }

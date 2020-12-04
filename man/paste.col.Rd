@@ -13,7 +13,7 @@ paste.col(x)
 Pasted columns
 }
 \description{
-\subsection{\code{\link{Workflow}}}{
+\subsection{Workflow}{
 Used by \code{\link{find.matching.rows}}, not intended to be used otherwise.
 }
 }

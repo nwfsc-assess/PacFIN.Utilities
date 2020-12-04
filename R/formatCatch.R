@@ -9,7 +9,7 @@
 #' the year the catches took place (e.g., Year), a column for
 #' each of the variables specified in strat, and a column that holds
 #' the measured catches specified using the \code{valuename} argument.
-#' @param strat A vector of colnames to stratify the catch over
+#' @template strat
 #' @param valuename The column name that contains the 
 #' catch values in \code{catch}
 #' 

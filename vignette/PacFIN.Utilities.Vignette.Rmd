@@ -45,8 +45,7 @@ Many of the functions described below write summary output to the console, and s
 |                         | plotRawData       | Plots raw PacFIN data  
 |                         | plotCleaned       | Plots the product of cleanPacFIN similarly   
 | Filtering               |                   |       
-|                         | cleanPacFIN       | Filters raw PacFIN data  
-|                         | cleanAges         | Filters for age data
+|                         | cleanPacFIN       | Filters raw PacFIN data
 | Customizing             |                   |       
 |                         | combineCalCom     | Combines PacFIN and CalCOM data
 |                         | setSeason         | Treating data from seasonal fisheries (e.g., petrale)
@@ -75,7 +74,7 @@ After running the expansion functions, data columns Expansion_Factor_1 and Expan
   
 * Other expansions are the product of Expansion_Factor_1 * Expansion_Factor_2  
 
-* Age data are expanded separately from lengths, after running cleanAges.  
+* Age data are expanded separately from lengths.  
   
 * For age-at-length comps, set Final_Expansion_Factor to 1. Each fish represents only itself.    
   

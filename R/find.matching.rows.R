@@ -1,5 +1,3 @@
-#############################################################################
-#
 #' Function find.matching.rows
 #' 
 #' @description
@@ -7,10 +5,7 @@
 #'   returns the rows of the second table for which the
 #'   keys match those of the first.
 #'
-#' \subsection{\code{\link{Workflow}}}{
-#' \code{find.matching.rows} is not run by the user.  It is a sub-function of 
-#' \code{\link{getExpansion_1}}
-#' }
+#' @seealso A sub-function of \code{\link{getExpansion_1}}
 #' @param file Rows to be matched from \code{table}
 #' @param table Superset of \code{file}
 #' @param findex columns of \code{file} to use to match values in \code{tindex}

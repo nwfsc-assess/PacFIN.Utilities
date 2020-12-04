@@ -2,7 +2,7 @@
 #'
 #' Calculate the numerator for the first level expansion factor.
 #'
-#' \subsection{\code{\link{Workflow}}}{
+#' \subsection{Workflow}{
 #' \code{EF1_Numerator} is not run by the user.  It is a sub-function of 
 #' \code{\link{getExpansion_1}}
 #' }
@@ -31,7 +31,7 @@
 #' @import utils
 #' @author Andi Stephens
 
-EF1_Numerator = function(Pdata, verbose = TRUE, plot = FALSE) {
+EF1_Numerator = function(Pdata, verbose = FALSE, plot = FALSE) {
 
   # Start clean
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/cleanPacFIN.R
 \name{cleanPacFIN}
 \alias{cleanPacFIN}
-\title{Filter PacFIN samples.}
+\title{Filter PacFIN Data}
 \usage{
 cleanPacFIN(
   Pdata,
@@ -10,19 +10,24 @@ cleanPacFIN(
   keep_INPFC = NULL,
   remove_INPFC = NULL,
   badRecords = NULL,
-  keep_gears = unique(Pdata$GRID)[order(unique(Pdata$GRID))],
+  keep_gears,
   keep_sample_type = c("", "M"),
   keep_sample_method = "R",
   keep_length_type,
+  keep_age_method = NULL,
   keep_missing_lengths = FALSE,
   keep_CA = TRUE,
   CLEAN = TRUE,
   spp = NULL,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{
-\item{Pdata}{a PacFIN dataset}
+\item{Pdata}{A data frame of biological samples
+originating from the
+Pacific Fishieries Information Network (PacFIN) data warehouse,
+which originated in 2014. Data are pulled using sql calls, see
+\code{\link{PullBDS.PacFIN}()}.}
 
 \item{only_USINPFC}{a logical value. FALSE by default.}
 
@@ -33,16 +38,26 @@ cleanPacFIN(
 \item{badRecords}{a set of sample identifiers. NULL by default.}
 
 \item{keep_gears}{A vector of character values specifying which gear types you want
-to label as unique fleets. Order the vector the same way you want the fleets numbered.}
+to label as unique fleets. Order the vector the same way you want the fleets numbered.
+If the argument is missing, which is the default, then all found gear groups
+are maintained and order alphabetically. For more details see documentation for
+\code{?\link{getGearGroup}} that lists a web link for where you can find the
+available gear groupings and how they link to \code{"GRID"} within your data.}
 
 \item{keep_sample_type}{a set of sample types to retain.  Default = c("", "M")}
 
 \item{keep_sample_method}{a set of sample methods to retain.  Default = "R"}
 
-\item{keep_length_type}{a set of length types to retain. 
+\item{keep_length_type}{a set of length types to retain.
 There is no default value. Typically, users will want to retain
 \code{c("", "F", "A")} at a minimum, but should also think about adding NA,
 i.e., \code{c("", "F", "A", NA)}.}
+
+\item{keep_age_method}{A vector of ageing methods to retain in the data. All fish
+aged with methods other than those listed will no longer be considered aged.
+A value of \code{NULL}, the default, will keep all ageing methods. However,
+a vector of \code{c("B", "S", "", NA, 1, 2)} will keep all unaged fish and those
+that were aged with break and burn and surface reads.}
 
 \item{keep_missing_lengths}{a logical value. FALSE by default.}
 
@@ -66,7 +81,7 @@ is \code{TRUE}.}
 The input data filtered for desired areas and record types
 specified, with added columns
 
-\tabular{ll}{ 
+\tabular{ll}{
   fishyr \tab initialized from SAMPLE_YEAR\cr
   fleet \tab initialized to 1\cr
   fishery \tab initialized to 1\cr
@@ -77,25 +92,22 @@ specified, with added columns
 }
 }
 \description{
-\code{cleanPacFIN} filters out unsuitable samples from data, and converts
-fish lengths to cm. The original fields in the returned data are left untouched,
-with the exception of SEX, which is modified so that unidentified fish are labeled
-"U".
-
-\subsection{\code{\link{Workflow}}}{
+Filter unsuitable biological samples from PacFIN data and convert
+some units into standard units. Altered data are placed in new columns,
+except for SEX, which is modified so that unidentified fish are \code{"U"}.
+}
+\details{
+\subsection{Workflow}{
 If there are CalCOM samples to be integrated with PacFIN data, run \code{combineCalCOM}
 first, otherwise run to \code{cleanPacFIN} as the first function in the workflow.
 }
-}
-\details{
-\subsection{\strong{INPFC Area specification}}{
 
+\subsection{\strong{INPFC Area specification}}{
 The US INPFC areas are 
    c("VUS","CL","VN","COL","NC","SC","EU","CALCOM","CP","EK","MT","PS ")
-   
+
 "CalCOM" is included because the combineCalCOM function
 sets it, since CalCOM doesn't seem to record INPFC areas.
-
 
 If \code{only_USINPFC} is TRUE, then only samples from the US INPFC areas will be retained.
 
@@ -107,7 +119,6 @@ will be discarded.
 }
 
 \subsection{\strong{Sample types and methods}}{
-
 SAMPLE_TYPEs may be (M=Market, R=Research, S=Special request, C=Commercial on-board).
 Only samples of type M are generally used.
 
@@ -116,7 +127,6 @@ Only samples collected in random sampling are generally used.
 }
 
 \subsection{\strong{Furthermore}}{
-
 The values created as new columns are for use by other functions in this package.
 In particular, \code{fishyr} and \code{season} are useful if there are multiple 
 seasons (e.g., winter and summer, as in the petrale sole assessment), and the 
@@ -129,9 +139,17 @@ The \code{sink} command can be used to save the filtering report to a
 file, in addition to printing it to the console.
 }
 }
+\examples{
+data(XMPL.BDS)
+Pdata <- cleanPacFIN(XMPL.BDS, keep_length_type = unique(XMPL.BDS[, "FISH_LENGTH_TYPE"]))
+NROW(XMPL.BDS) - NROW(Pdata)
+# This time don't clean it
+Pdata <- cleanPacFIN(XMPL.BDS, keep_length_type = unique(XMPL.BDS[, "FISH_LENGTH_TYPE"]),
+  CLEAN = FALSE)
+NROW(XMPL.BDS) - NROW(Pdata)
+}
 \seealso{
-\code{\link{cleanAges}}, \code{\link{getState}}, \code{\link{getSeason}}, 
-\code{\link{sink}}
+\code{\link{getState}}, \code{\link{getSeason}}
 }
 \author{
 Andi Stephens

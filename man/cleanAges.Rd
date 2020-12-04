@@ -31,17 +31,10 @@ specified, with added column \code{age}.  A brief report on filtering is
 output to the console.
 }
 \description{
-\code{cleanAges} removes the samples with bad ages or agemethods.
+\code{cleanAges} is now defunct and and users now only need to
+run \code{\link{cleanPacFIN}()} rather than both functions.
 }
 \details{
-\subsection{\code{\link{Workflow}}}{
-In most cases, you should run \code{\link{cleanPacFIN}}
-before \code{cleanAges}.  There may be cases where initial exploration of the
-age data can be better accomplished without it.
-}
-
-
-
 Age methods "1" and "2" are equivalent to "B" and "S" respectively,
 and are reset to those values.
 

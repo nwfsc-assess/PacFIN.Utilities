@@ -8,7 +8,7 @@ plotCleaned(Pdata, length = TRUE)
 }
 \arguments{
 \item{Pdata}{A matrix of age or length data returned from
-\code{\link{cleanAges}} or \code{\link{cleanPacFIN}}.}
+\code{\link{cleanPacFIN}}.}
 
 \item{length}{A logical value defining whether or not \code{Pdata} is length-
 or age-composition data.}
@@ -19,12 +19,12 @@ A plot of either 3 x 2 or 2 x 2 depending on whether or not unique
   column is boxplots of either length or age and depth by year.
 }
 \description{
-\subsection{\code{\link{Workflow}}}{
+\subsection{Workflow}{
 Can be used at any time after \code{\link{cleanPacFIN}}, has been run.
 }
 }
 \seealso{
-\code{\link{cleanAges}}, \code{\link{cleanPacFIN}}, \code{\link{Stratify}},
+\code{\link{cleanPacFIN}}, \code{\link{Stratify}},
 \code{\link{getGearGroup}}.
 }
 \author{

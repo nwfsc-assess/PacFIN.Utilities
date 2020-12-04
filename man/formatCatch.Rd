@@ -12,7 +12,12 @@ the year the catches took place (e.g., Year), a column for
 each of the variables specified in strat, and a column that holds
 the measured catches specified using the \code{valuename} argument.}
 
-\item{strat}{A vector of colnames to stratify the catch over}
+\item{strat}{A vector of column names to stratify the output over.
+For example, if you wish to summarize by ageing method, then the argument
+would look like \code{strat = "agemethod"}.
+Or if you want to look at fleets and gear, then use
+\code{strat = c("fleet","usegear")}.
+# todo: deprecate defaults}
 
 \item{valuename}{The column name that contains the 
 catch values in \code{catch}}

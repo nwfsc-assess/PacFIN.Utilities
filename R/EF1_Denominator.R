@@ -2,7 +2,7 @@
 #
 #' Calculate the denominator for the level-1 expansion factor.
 #' 
-#' \subsection{\code{\link{Workflow}}}{
+#' \subsection{Workflow}{
 #' \code{EF1_Denominator} is not run by the user.  It is a sub-function of 
 #' \code{\link{getExpansion_1}}
 #' }
@@ -26,7 +26,7 @@
 #' @param calcWL A logical value specifying whether or not to calculate the
 #' weight-length parameters from the supplied data.
 #' @template weightlengthparams
-#' @param verbose Report extra information.  Default:  TRUE
+#' @template verbose
 #' @param plot Create plots.  Default:  FALSE
 #' @return Additional columns are added to \code{Pdata}:
 #' \itemize{
@@ -61,7 +61,7 @@ EF1_Denominator = function( Pdata, Indiv_Wgts=TRUE, calcWL = FALSE,
                             fa = 2e-06, fb = 3.5, 
                             ma = 2e-06, mb = 3.5, 
                             ua = 2e-06, ub = 3.5, 
-                            verbose = TRUE, 
+                            verbose = FALSE,
                             plot = FALSE) 
 {
   if (!Indiv_Wgts) stop("EF1_Denominator no longer works without ",

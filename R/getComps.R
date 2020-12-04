@@ -3,7 +3,7 @@
 #' Aggregate composition data by length, age, or age-at-length according to the
 #' given stratification.
 #' 
-#' \subsection{\code{\link{Workflow}}}{
+#' \subsection{Workflow}{
 #' \code{getComps} is run subsequently to \code{\link{getExpansion_2}}.
 #' }
 #' 
@@ -23,9 +23,7 @@
 #'   depending on the \code{Comps} argument.
 #'   
 #' @template Pdata
-#' @param strat A character value or vector of character values, of which are
-#'   prepended to \code{defaults}. For instance if you wish to add ageing method
-#'   as a stratification use \code{strat = 'agemethod'}.
+#' @template strat
 #' @param Comps The type of composition data to create. Options are length
 #'   (\code{'LEN'}, age (\code{'AGE'}), or conditional age-at-length (\code{'AAL'}).
 #' @param defaults The default stratification columns
@@ -47,7 +45,7 @@
 
 
 getComps = function( Pdata, strat = NULL, Comps = "AAL",
-  defaults = c("fleet", "fishyr", "season"), verbose = TRUE, ...) {
+  defaults = c("fleet", "fishyr", "season"), verbose = FALSE, ...) {
 
   # Check for expansion factor
 
@@ -99,7 +97,7 @@ getComps = function( Pdata, strat = NULL, Comps = "AAL",
 #' @param weightid A character value giving the column name that
 #' holds the value to be summed for each type and strata.
 #' @param dropmissing A logical value supplied to the
-#' \code{drop} argument in \code{aggregate}
+#' \code{drop} argument in \code{stats::aggregate}
 #' that specifies whether or not to keep all levels in the data
 #' even if there are no values to report for summaries. 
 #' @author Kelli Faye Johnson
@@ -144,17 +142,17 @@ getcomps_long <- function(data, towstrat, type,
   data[, "Uonly"] <- getunsexedsamps(data[, towid], data[, sexn])
 
   comp <- merge(by = tstratwsex, all = TRUE,
-    aggregate(
+    stats::aggregate(
       data[, c(weightid, freqn)],
       by = data[, cstratwsex, drop = FALSE],
       sum, na.rm = TRUE, drop = dropmissing),
-    aggregate(
+    stats::aggregate(
       list("tows" = data[, towid], "ONLY_U_TOWS" = data[, c("Uonly")]),
       by = data[, tstratwsex, drop = FALSE],
       lenique, drop = dropmissing))
   comp <- merge(
-    reshape(comp, timevar = "SEX", idvar = Cstrat, direction = "wide"),
-    aggregate(
+    stats::reshape(comp, timevar = "SEX", idvar = Cstrat, direction = "wide"),
+    stats::aggregate(
       list("alltows" = data[, towid]),
       by = data[, towstrat, drop = FALSE],
       lenique, drop = dropmissing),

@@ -11,7 +11,7 @@
 #' }
 #'
 #' @param rawData an unfiltered PacFIN dataset
-#' @param fname a filename
+#' @template fname
 #'
 #' @export
 #'
@@ -33,7 +33,8 @@ plotRawData = function( rawData, fname=NULL ) {
     txtfile = paste( "Diags.", species, ".txt", sep="")
 
   } else {
-
+    # Remove the extension
+    fname <- gsub("\\.[a-zA-Z]{3}$", "", fname)
     pdffile = paste(fname, ".pdf", sep="")
     txtfile = paste(fname, ".txt", sep="")
     

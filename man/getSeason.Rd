@@ -10,11 +10,15 @@ getSeason(
   yearUp = NULL,
   yearDown = NULL,
   plotResults = F,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{
-\item{Pdata}{A PacFIN \code{data.frame}}
+\item{Pdata}{A data frame of biological samples
+originating from the
+Pacific Fishieries Information Network (PacFIN) data warehouse,
+which originated in 2014. Data are pulled using sql calls, see
+\code{\link{PullBDS.PacFIN}()}.}
 
 \item{season_type}{Specify a \code{numeric} value for season type.
 If negative then all months will be assigned to season \code{1}.
@@ -47,7 +51,7 @@ An additional column \code{season} is added to \code{Pdata}.
   No columns are modified.
 }
 \description{
-\subsection{\code{\link{Workflow}}}{
+\subsection{Workflow}{
 Most assessments won't require \code{getSeason}. It is run by \code{\link{cleanPacFIN}}
 and users shouldn't need to worry about it.  If a specialized season structure is required,
 \code{getSeason} should be run immediately after \code{\link{cleanPacFIN}}

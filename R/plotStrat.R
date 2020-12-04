@@ -10,7 +10,6 @@
 #' @param dolbins The length bins
 #' 
 #' @import ggplot2
-#' @import stats reshape
 plotStrat <- function(data, dir, ylimperc = 0.65, npages = 11, dolbins) {
 
 for (ii_f in c("fleet", "fleet + state")) 

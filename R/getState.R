@@ -3,7 +3,8 @@
 #' Create a state field from \code{source} for the \code{data.frame}
 #' 
 #' \code{Pdata}, where \code{Pdata} is a \code{data.frame} from
-#' PacFIN.#' \subsection{\code{\link{Workflow}}}{
+#' PacFIN.
+#' \subsection{Workflow}{
 #' \code{getState} is run by \code{\link{cleanPacFIN}}.
 #' }
 #' 
@@ -21,7 +22,7 @@
 #' @template verbose
 
 getState <- function (Pdata, source = "SOURCE_AGID", CLEAN = TRUE,
-  keepPW = FALSE, verbose = TRUE) {
+  keepPW = FALSE, verbose = FALSE) {
 
   if (verbose) {
     cat("\nGetting state information from", source, "\n\n")

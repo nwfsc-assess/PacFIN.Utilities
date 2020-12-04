@@ -10,22 +10,27 @@ writeComps(
   abins = NULL,
   lbins = NULL,
   maxAge = Inf,
-  partition = 0,
+  partition = 2,
   ageErr = 0,
   returns = "FthenM",
   dummybins = FALSE,
   sum1 = FALSE,
   digits = 4,
   overwrite = TRUE,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{
 \item{inComps}{A dataframe generated as described in Workflow, above.}
 
-\item{fname}{A filename, used to save the output as a \code{.csv} file.
-Users can specify a full path if they do not want the file written in the
-current working directory.}
+\item{fname}{A filename with the appropriate extension,
+used to save the function output to the disk. 
+For example, \code{LenComps.csv} or
+\code{file.path(getwd(), "SampleSize.csv")}.
+Full, relative, or simple paths are allowed because the argument is used as
+is, i.e., not redirected to a directory different than \code{getwd()}.
+Note that various functions within PacFIN.Utilities have different default
+values for this input argument.}
 
 \item{abins}{Bins to use for ages.  Default is the data bins.}
 
@@ -37,7 +42,11 @@ then those fish will be included in a plus group which you can investigate
 later. Note that \code{maxAge} is only used if \code{abins = NULL}, otherwise
 fish are binned according to user specified bins irregardless of \code{maxAge}.}
 
-\item{partition}{Defaults to 1.}
+\item{partition}{Used by Stock Synthesis for length- or age-composition data
+where 0 = retained + discarded, 1= discarded, and 2 = retained fish.
+The default is to assume that these fish are retained only.
+The default was changed in 2020 from a value of 0,
+and code should be updated accordingly if you really want 0.}
 
 \item{ageErr}{Defaults to 1.}
 

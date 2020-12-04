@@ -15,7 +15,11 @@ checkLenAge(
 )
 }
 \arguments{
-\item{Pdata}{a PacFIN dataset}
+\item{Pdata}{A data frame of biological samples
+originating from the
+Pacific Fishieries Information Network (PacFIN) data warehouse,
+which originated in 2014. Data are pulled using sql calls, see
+\code{\link{PullBDS.PacFIN}()}.}
 
 \item{Par}{initial or externally estimated parameter values for the vonB
 growth function where the order are ("k", "Linf", "Lmin", "CV young", "CV old").

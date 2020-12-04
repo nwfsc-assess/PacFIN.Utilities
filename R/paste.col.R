@@ -2,7 +2,7 @@
 #
 #' Utility function.
 #' 
-#' \subsection{\code{\link{Workflow}}}{
+#' \subsection{Workflow}{
 #' Used by \code{\link{find.matching.rows}}, not intended to be used otherwise.
 #' }
 #' @param x dataframe

@@ -16,12 +16,16 @@ getExpansion_1(
   mb = NA,
   ua = NA,
   ub = NA,
-  verbose = TRUE,
+  verbose = FALSE,
   plot = FALSE
 )
 }
 \arguments{
-\item{Pdata}{A PacFIN \code{data.frame}}
+\item{Pdata}{A data frame of biological samples
+originating from the
+Pacific Fishieries Information Network (PacFIN) data warehouse,
+which originated in 2014. Data are pulled using sql calls, see
+\code{\link{PullBDS.PacFIN}()}.}
 
 \item{maxExp}{The maximum expansion factor (either a number or a quantile).}
 
@@ -58,8 +62,8 @@ A \code{data.frame} where all of the original columns in
   \code{Pdata} remain unaltered but additional columns are added.
 }
 \description{
-\subsection{\code{\link{Workflow}}}{
-\code{getExpansion_1} is run after \code{\link{cleanPacFIN}} and \code{\link{cleanAges}}.
+\subsection{Workflow}{
+\code{getExpansion_1} is run after \code{\link{cleanPacFIN}}.
 }
 }
 \details{
@@ -74,7 +78,7 @@ There is one manual step in the workflow.
 After running the expansion functions, data columns Expansion_Factor_1 and 
 Expansion_Factor_2 are available to use in manually setting the Final_Expansion_Factor. 
 \itemize{
-\item{Age data are expanded separately from lengths, after running \code{cleanAges}.}
+\item{Age data are expanded separately from lengths.}
 \item{WA fish are generally only expanded using Expansion_Factor_2.}
 \item{Other expansions are the product of Expansion_Factor_1 * Expansion_Factor_2}
 \item{For age-at-length comps, set Final_Expansion_Factor to 1.  Each fish represents only itself.}

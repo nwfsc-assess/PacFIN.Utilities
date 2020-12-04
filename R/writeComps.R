@@ -17,9 +17,7 @@
 #'   
 #' @param inComps A dataframe generated as described in Workflow, above.
 #' 
-#' @param fname A filename, used to save the output as a \code{.csv} file.
-#'   Users can specify a full path if they do not want the file written in the
-#'   current working directory.
+#' @template fname
 #'   
 #' @param abins  Bins to use for ages.  Default is the data bins.
 #' @param lbins  Bins to use for lengths.  Default is the data bins.
@@ -30,7 +28,11 @@
 #'   later. Note that \code{maxAge} is only used if \code{abins = NULL}, otherwise
 #'   fish are binned according to user specified bins irregardless of \code{maxAge}.
 #'   
-#' @param partition  Defaults to 1.
+#' @param partition  Used by Stock Synthesis for length- or age-composition data
+#' where 0 = retained + discarded, 1= discarded, and 2 = retained fish.
+#' The default is to assume that these fish are retained only.
+#' The default was changed in 2020 from a value of 0,
+#' and code should be updated accordingly if you really want 0.
 #' @param ageErr     Defaults to 1.
 #' 
 #' @param returns  One of ("FthenM", "Fout", "Mout", or "Uout").  Choose return value
@@ -102,9 +104,9 @@
 #'
 ##############################################################################
 writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
-                      maxAge=Inf, partition=0, ageErr=0, returns = "FthenM",
+                      maxAge=Inf, partition = 2, ageErr=0, returns = "FthenM",
                       dummybins = FALSE, sum1 = FALSE, digits = 4,
-                      overwrite = TRUE, verbose = TRUE) {
+                      overwrite = TRUE, verbose = FALSE) {
 
   if (verbose){
     cat(paste("Writing comps to file", fname, "\n"))
@@ -125,9 +127,14 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
     flush.console()
   }
 
-  # Unsexed fish should have been assigned gender with doSexRatio.  Re-using
-  # those columns to represent males + females
+  # Adding columns in case a sex is not represented in inComps
+  if(length(  inComps$male) == 0) {
+    inComps$male = inComps$msamps = inComps$mtows = 0 }
+  if(length(inComps$female) == 0) {
+    inComps$female = inComps$fsamps = inComps$ftows = 0}
 
+  # Unsexed fish should have been assigned sex with doSexRatio.  
+  # Re-using those columns to represent males + females
   inComps$unsexed = inComps$male + inComps$female
   inComps$usamps = inComps$msamps + inComps$fsamps
   inComps$utows = inComps$alltows
@@ -150,7 +157,7 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
 
       lbins = sort(unique(inComps$lengthcm))
 
-    } # End if
+    } # End if for lbins
 
     # Re-code actual lengths to be lbins
     # Note that the last bin is a dummy bin,
@@ -203,7 +210,7 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
 
       abins = abins[abins < maxAge]
 
-    } # End if
+    } # End if for abins
 
     # Re-code actual ages to be abins
     
@@ -220,7 +227,7 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
       
       abins <- c(abins, Inf)
       
-    } # End if-else
+    } # End if-else dummybins
 
     # add extra, dummy bin because all.inside=T
 
@@ -231,7 +238,7 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
     #    "Note that last bin is a dummy bin needed for internal purposes.\n\n"))
     # }
     
-  } # End if
+  } # End if inComps$ages
 
   AAL = FALSE
 
@@ -304,7 +311,7 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
     cat("\n\n")
     flush.console()
   }
-  # For each gender in turn
+  # For each sex in turn
 
   for ( g in c("m","f","u")) {
 
@@ -400,7 +407,7 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
 
   # Fill the rest of the values
 
-  uStrat$gender = NA
+  uStrat$sex = NA
   uStrat$partition = partition
   uStrat$ageErr = ageErr
 
@@ -417,14 +424,45 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
 
   Nsamps = rowSums(cbind(fComps$Nsamps, mComps$Nsamps), na.rm=T)
 
-  # Corrected Ntows for FthenM case.
+  Ninput = round(ifelse( 
+                 round(Nsamps / uComps$Ntows, 0) < 44, 
+                 uComps$Ntows + 0.138 * Nsamps, 7.06 * uComps$Ntows), 0 )
 
-  FthenM = cbind(uStrat, uComps$Ntows, Nsamps, fComps[,1:NCOLS], mComps[,1:NCOLS])
+  if(!AAL){
+    FthenM = cbind(uStrat, uComps$Ntows, Nsamps, Ninput, fComps[,1:NCOLS], mComps[,1:NCOLS])
+  } else {
+    FthenM = cbind(uStrat, uComps$Ntows, Nsamps, fComps[,1:NCOLS], mComps[,1:NCOLS])
+  }
 
-  Mout = cbind(uStrat, mComps$Ntows, mComps$Nsamps, blanks, mComps[1:NCOLS])
-  Fout = cbind(uStrat, fComps$Ntows, fComps$Nsamps, fComps[1:NCOLS], blanks)
-  Uout = cbind(uStrat, uComps$Ntows, uComps$Nsamps, uComps[1:NCOLS], blanks)
 
+  Ninput = round(ifelse( 
+                 round(mComps$Nsamps / mComps$Ntows, 0) < 44, 
+                 mComps$Ntows + 0.138 * mComps$Nsamps, 7.06 * mComps$Ntows), 0 )
+  if(!AAL){
+    Mout = cbind(uStrat, mComps$Ntows, mComps$Nsamps, Ninput, blanks, mComps[1:NCOLS])
+  } else {
+    Mout = cbind(uStrat, mComps$Ntows, mComps$Nsamps, blanks, mComps[1:NCOLS])
+  }
+
+  Ninput = round(ifelse( 
+                 round(fComps$Nsamps / fComps$Ntows, 0) < 44, 
+                 fComps$Ntows + 0.138 * fComps$Nsamps, 7.06 * fComps$Ntows), 0 )
+
+  if(!AAL){
+    Fout = cbind(uStrat, fComps$Ntows, fComps$Nsamps, Ninput, fComps[1:NCOLS], blanks)
+  } else {
+    Fout = cbind(uStrat, fComps$Ntows, fComps$Nsamps, fComps[1:NCOLS], blanks)
+  } 
+
+  Ninput = round(ifelse( 
+                 round(uComps$Nsamps / uComps$Ntows, 0) < 44, 
+                 uComps$Ntows + 0.138 * uComps$Nsamps, 7.06 * uComps$Ntows), 0 )
+
+  if(!AAL){
+    Uout = cbind(uStrat, uComps$Ntows, uComps$Nsamps, Ninput, uComps[1:NCOLS], blanks)
+  } else {
+    Uout = cbind(uStrat, uComps$Ntows, uComps$Nsamps, uComps[1:NCOLS], blanks)
+  } 
   # Make it pretty
 
   index = which(names(Fout) == "fComps$Ntows")
@@ -439,15 +477,22 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
   names(Uout)[index + 1] = "Nsamps"
   names(FthenM)[index + 1] = "Nsamps"
 
-  # Remove empty rows
+  if(!AAL){
+    names(Mout)[index + 2] = "InputN"
+    names(Fout)[index + 2] = "InputN"
+    names(Uout)[index + 2] = "InputN"
+    names(FthenM)[index + 2] = "InputN"    
+  }
 
+
+  # Remove empty rows
   Fout = Fout[Fout$Nsamps > 0,]
   Mout = Mout[Mout$Nsamps > 0,]
 
-  Uout$gender=0
-  Fout$gender=1
-  Mout$gender=2
-  FthenM$gender = 3
+  if(dim(Uout)[1] != 0) { Uout$sex = 0}
+  if(dim(Fout)[1] != 0) { Fout$sex = 1}
+  if(dim(Mout)[1] != 0) { Mout$sex = 2}
+  if(dim(FthenM)[1] != 0) {FthenM$sex = 3 }
 
   # function to rescale comps to sum to 1
   # IGT(2019-04-25): I tried using an apply function but kept messing up,
@@ -476,10 +521,10 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
   if(sum1){
     if(verbose){
       message("rescaling comps to sum to 1")
-      Uout   <- rescale.comps(Uout)
-      Fout   <- rescale.comps(Fout)
-      Mout   <- rescale.comps(Mout)
-      FthenM <- rescale.comps(FthenM)
+      if( dim(Uout)[1] != 0)   { Uout   <- rescale.comps(Uout) }
+      if( dim(Fout)[1] != 0)   { Fout   <- rescale.comps(Fout) }
+      if( dim(Mout)[1] != 0)   { Mout   <- rescale.comps(Mout) }
+      if( dim(FthenM)[1] != 0) { FthenM <- rescale.comps(FthenM) }
     }
   }
   # optionally round off to chosen value
@@ -487,10 +532,10 @@ writeComps = function(inComps, fname="out.csv", abins=NULL, lbins=NULL,
     if(verbose){
       message("rounding values to ", digits, " digits")
     }
-    Uout   <- round.comps(Uout, digits = digits)
-    Fout   <- round.comps(Fout, digits = digits)
-    Mout   <- round.comps(Mout, digits = digits)
-    FthenM <- round.comps(FthenM, digits = digits)
+    if( dim(Uout)[1] != 0)   { Uout   <- round.comps(Uout, digits = digits) }
+    if( dim(Fout)[1] != 0)   { Fout   <- round.comps(Fout, digits = digits) }
+    if( dim(Mout)[1] != 0)   { Mout   <- round.comps(Mout, digits = digits) }
+    if( dim(FthenM)[1] != 0) { FthenM <- round.comps(FthenM, digits = digits) }
   }
   
   # Print the whole shebang out to a file.

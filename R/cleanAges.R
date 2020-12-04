@@ -1,14 +1,7 @@
-#####################################################################
-#
 #' Filter samples for appropriate ages and agemethods.
 #'
-#' \code{cleanAges} removes the samples with bad ages or agemethods.
-#' 
-#' \subsection{\code{\link{Workflow}}}{
-#' In most cases, you should run \code{\link{cleanPacFIN}}
-#' before \code{cleanAges}.  There may be cases where initial exploration of the
-#' age data can be better accomplished without it.
-#' }
+#' \code{cleanAges} is now defunct and and users now only need to
+#' run \code{\link{cleanPacFIN}()} rather than both functions.
 #'
 #' @export
 #'
@@ -41,72 +34,7 @@
 cleanAges = function( Pdata, keep_age_methods=c("B","S",""), 
                       minAge=1, maxAge=NULL, CLEAN=TRUE ) {
 
-  cat( "\nCleaning Age data.\n\n")
-
-  if ( length(Pdata$fishyr) == 0 ) {
-
-    cat("\nWarning!  cleanPacFIN was not run on this data\n\n")
-
-  } # End if
-
-  # Fix Age Methods
-
-  Pdata$agemethod = Pdata$AGE_METHOD
-  if (!1 %in% keep_age_methods) {
-    Pdata$agemethod[Pdata$agemethod == "1"] = "B"
-  }
-  if (!2 %in% keep_age_methods){
-    Pdata$agemethod[Pdata$agemethod == "2"] = "S"
-  }
-  Pdata$agemethod[is.na(Pdata$agemethod)] = -1
-
-  if (!CLEAN) {
-
-    cat("\nGenerating data report only.  No data will be removed.\n")
-
-    Original_data = Pdata
-
-  } # End if
-
-  # Remove bad records
-
-  Rec_summary = rep(0,3)
-
-  Rec_summary[1] = nrow(Pdata)
-
-  # Records with bad ages
-
-  Pdata = Pdata[Pdata$age >= minAge,]
-  Rec_summary[2] = nrow(Pdata)
-
-  Pdata = Pdata[Pdata$agemethod %in% keep_age_methods,]
-  Rec_summary[3] = nrow(Pdata)
-
-  if ( ! is.null(maxAge) ) {
-
-    cat("\nSetting maximum age to", maxAge, "\n")
-
-    Pdata$age[Pdata$age > maxAge] = maxAge
-
-  } # End if
-
-  # Report removals
-
-  cat("\nRemoval report\n\n")
-  cat("Records in input:                  ", Rec_summary[1], "\n")
-  cat("Records with age less than min:    ", Rec_summary[1] - Rec_summary[2], "\n")
-  cat("Records with bad agemethods:       ", Rec_summary[2] - Rec_summary[3], "\n")
-  cat("Records remaining:                 ", nrow(Pdata), "\n")
-
-  if (CLEAN) {
-
-    return(Pdata)
-
-  } else {
-
-    cat("\nReturning original data because CLEAN=FALSE\n\n")
-    return(Original_data)
-
-  } # End if-else
+  .Defunct("cleanPacFIN", package = "PacFIN.Utilities",
+    msg = "Functionality was moved to clean cleanPacFIN.")
 
 } # End cleanAges

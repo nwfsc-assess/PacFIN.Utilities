@@ -10,16 +10,23 @@ getComps(
   strat = NULL,
   Comps = "AAL",
   defaults = c("fleet", "fishyr", "season"),
-  verbose = TRUE,
+  verbose = FALSE,
   ...
 )
 }
 \arguments{
-\item{Pdata}{A PacFIN \code{data.frame}}
+\item{Pdata}{A data frame of biological samples
+originating from the
+Pacific Fishieries Information Network (PacFIN) data warehouse,
+which originated in 2014. Data are pulled using sql calls, see
+\code{\link{PullBDS.PacFIN}()}.}
 
-\item{strat}{A character value or vector of character values, of which are
-prepended to \code{defaults}. For instance if you wish to add ageing method
-as a stratification use \code{strat = 'agemethod'}.}
+\item{strat}{A vector of column names to stratify the output over.
+For example, if you wish to summarize by ageing method, then the argument
+would look like \code{strat = "agemethod"}.
+Or if you want to look at fleets and gear, then use
+\code{strat = c("fleet","usegear")}.
+# todo: deprecate defaults}
 
 \item{Comps}{The type of composition data to create. Options are length
 (\code{'LEN'}, age (\code{'AGE'}), or conditional age-at-length (\code{'AAL'}).}
@@ -42,7 +49,7 @@ A dataframe with composition data specific to the type specified
   in \code{Comps} for males, females, and unsexed records.
 }
 \description{
-\subsection{\code{\link{Workflow}}}{
+\subsection{Workflow}{
 \code{getComps} is run subsequently to \code{\link{getExpansion_2}}.
 }
 }
