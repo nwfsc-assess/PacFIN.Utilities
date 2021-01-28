@@ -35,7 +35,7 @@ PacFIN.Catch.Extraction <- function(PACFIN_SPECIES_CODE = "('CNRY','CNR1')", Pac
         on.exit(file.remove(File.ASCII))
         getTMP <- httr::GET(URL)
         write(paste(readLines(textConnection(httr::content(getTMP))), collapse = "\n"), File.ASCII)
-        source(File.ASCII, local = parent.env(environment()))
+        source(File.ASCII)
     }
     
     sourceFunctionURL("https://raw.githubusercontent.com/John-R-Wallace-NOAA/JRWToolBox/master/R/printf.R")
