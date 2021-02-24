@@ -63,7 +63,7 @@ PacFIN.Catch.Extraction <- function(PACFIN_SPECIES_CODE = "('CNRY','CNR1')", Pac
       sp <- import.sql("Select * from pacfin.sp", dsn = "PacFIN", uid = UID,  pwd = PWD)
       cat("\n\n")
       printf(sp[grep(casefold(PacFIN_Common_Name, upper = TRUE),  sp$CNAME), 1:7])
-      stop("\n--- Just checking for a nominal species ID using the PacFIN common name. ---\n\n")
+      return(cat("\n--- Checking for a nominal species ID using the PacFIN common name. ---\n\n"))
    }   
    
    if(verbose & UID == "wallacej") {
